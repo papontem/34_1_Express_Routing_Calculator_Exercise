@@ -1,0 +1,22 @@
+{
+  "name": "34_1_express_routing_calculator_exercise",
+  "version": "1.0.0",
+  "description": "exercise where we create a calculator express api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/papontem/34_1_Express_Routing_Calculator_Exercise.git"
+  },
+  "author": "Phedias A.M.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/papontem/34_1_Express_Routing_Calculator_Exercise/issues"
+  },
+  "homepage": "https://github.com/papontem/34_1_Express_Routing_Calculator_Exercise#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
