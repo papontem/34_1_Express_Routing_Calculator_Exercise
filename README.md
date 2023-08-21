@@ -17,11 +17,11 @@ To set up and run the application locally, follow these steps:
 ```
 $ npm install
 ```
-4. to start the server use the command:
+4. To start the server use the command:
 ```
 $ node calc_API.js
 ```
-5. then you make get requets to our calculator api on port 3000 of your localhost. But you can change this whenever you like by changing the value of port in calc_API_app.js.
+5. Then you make get requests to our calculator api on port 3000 of your localhost. But you can change this whenever you like by changing the value of port in calc_API_app.js.
 ```
 // init our express app
 const app = express();
