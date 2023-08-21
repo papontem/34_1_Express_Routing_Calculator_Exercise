@@ -13,8 +13,39 @@ const port = 3000;
 // Tell Express to parse all requests for json
 app.use(express.json());
 
+// Choice of Operations available
 const OPERATIONS = ['mean', 'median', 'mode']
 
+// METHODS OF CALCULATION
+/**
+ *  Calculates the mean (avg) of an array of numbers
+ * @param {Array[Number]} arr - array of numbers 
+ */
+function mean(arr){
+	let arrLen = arr.length
+	let result = 0;
+	arr.forEach(num => {
+		result += num;
+	})
+
+	result = result / arrLen
+	return result 
+}
+
+// /**
+//  *  Calculates the median (midpoint) of an array of numbers
+//  * @param {Array[Number]} arr - array of numbers 
+//  */
+// function median(arr) {
+	
+// }
+// /**
+//  *  Calculates the mdoe (most frequent) of an array of numbers
+//  * @param {Array[Number]} arr - array of numbers 
+//  */
+// function mode(arr) {
+	
+// }
 
 /**ROUTES */
 
@@ -54,19 +85,38 @@ app.get("/:operation", (req, res,next) => {
 			throw new ExpressError("Bad Request: nums are required", 400);
 		}
 
-		const nums = req.query.nums.split(',');
+		// Pam: throw error if any of the elements from nums is empty, too many commas
+		let nums = req.query.nums.split(',');
+		if (nums.some(num => num === "")) {
+			throw new ExpressError(`Bad Request: nums = [${nums}] includes an empty string "", too many commas `, 400);
+		}
 		// Pam: throw error if any of the elements from nums is not a number
 		if (nums.some(num => isNaN(num))) {
 			throw new ExpressError(`Bad Request: nums = [${nums}] includes an element that is not a number`, 400);
 		}
 
+		// Pam: turn nums elements into numbers as all must be numbers sure by now. 
+		nums = nums.map(str => parseFloat(str))
+		console.log("Nums:", nums);
+
+		//PAM: do the desired operation
 		let val;
+		if( ope === "mean"){
+			console.log("GETTING THE MEAN");
+			val = mean(nums)
+		}
+		if( ope === "median"){
+			console.log("GETTING THE MEDIAN");
+		}
+		if( ope === "mode"){
+			console.log("GETTING THE MODE");
+		}
 
 		res.json({
 			operation: ope,
 			nums: nums,
-			// value: val
-			value: `TEMPORARY VALUE ${val}`
+			value: val
+			// value: `TEMPORARY VALUE ${val}`
 
 		});
 
