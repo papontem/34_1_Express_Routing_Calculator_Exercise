@@ -3,6 +3,9 @@
 // importing express
 const express = require("express");
 
+// IMPORTING METHODS OF CALCULATION
+const { mean,median,mode } = require("./operations");
+
 // importing our own custom errors
 const ExpressError = require('./expressError')
 
@@ -18,94 +21,6 @@ app.use(express.json());
 // Choice of Operations available
 const OPERATIONS = ['mean', 'median', 'mode']
 
-// METHODS OF CALCULATION
-/**
- *  Calculates the mean (avg) of an array of numbers
- * @param {Array[Number]} arr - array of numbers 
- */
-function mean(arr){
-	// console.log("GETTING THE MEAN");
-	let arrLen = arr.length
-	let result = 0;
-
-	arr.forEach(num => {
-		result += num;
-	})
-
-	result = result / arrLen
-	return result 
-}
-
-/**
- *  Calculates the median (midpoint) of an array of numbers
- * @param {Array[Number]} arr - array of numbers 
- */
-function median(arr) {
-	// console.log("GETTING THE MEDIAN");
-	// console.log("Array:", arr);
-
-	let arrLen = arr.length;
-	let result;
-
-	// sort array in place, in increasing order
-	arr.sort((a, b) => a - b);
-	// console.log("Array:", arr);
-	// console.log("Array length:", arrLen);
-	
-	// get the index in the middle, right index if there are two numbers in the middle
-	let middleIndex = Math.floor(arrLen / 2);
-	// console.log("Middle Index:", middleIndex);
-
-	// if arr is of odd-length, else it has two elements in the middle
-	if (arrLen % 2 === 1) {
-		result =  arr[middleIndex];
-		return result;
-	} else {
-		let leftNum = arr[middleIndex - 1];
-		let rightNum = arr[middleIndex];
-		result = (leftNum + rightNum) / 2 ;
-		return result;
-	}
-}
-/**
- *  Calculates the mdoe (most frequent) of an array of numbers
- * @param {Array[Number]} arr - array of numbers 
- */
-function mode(arr) {
-	// console.log("GETTING THE MODE");
-	arrLen = arr.length
-	let result = [];
-	let highestCount = 0;
-	let numsTally = {}
-
-	// creat dictionary object that keeps count of each number, and updates the highest count as we iterate through them
-	arr.forEach(num => {
-		// console.log("Current Num:",num);
-
-		if(!numsTally[num]){
-			numsTally[num] = 1;
-		} else {
-			numsTally[num] +=1;
-		}
-		// check to update highest num count
-		if (numsTally[num] > highestCount){
-			highestCount = numsTally[num]
-			// console.log("Updated Highest Number Count:", highestCount);
-		}
-		// console.log("Updated Nums Dic:",numsTally);
-	})
-	// console.log("Final Nums Dic:",numsTally);
-
-	// now find which number or numbers who have the highest count
-	for(num in numsTally){
-		console.log(num);
-		if(numsTally[num] == highestCount){
-			result.push(num)
-		}
-	}
-	return result
-}
-
 /**ROUTES */
 
 app.get("/", (req, res,next) => {
@@ -118,14 +33,6 @@ app.get("/status", (req, res,next) => {
 		status: "Calc Api is Live",
 	});
 });
-
-/**
-	The three base GET requests routes: 
-	/mean
-	/median 
-	/mode.
- */
-
 
 // PAM: merged operations routes into one.
 app.get("/:operation", (req, res,next) => {
@@ -147,14 +54,14 @@ app.get("/:operation", (req, res,next) => {
 		// Pam: throw error if any of the elements from nums is empty, too many commas
 		let nums = req.query.nums.split(',');
 		if (nums.some(num => num === "")) {
-			throw new ExpressError(`Bad Request: nums = [${nums}] includes an empty string "", too many commas `, 400);
+			throw new ExpressError(`Bad Request: nums = [${nums}] includes an empty string (""), too many commas (,) `, 400);
 		}
 		// Pam: throw error if any of the elements from nums is not a number
 		if (nums.some(num => isNaN(num))) {
 			throw new ExpressError(`Bad Request: nums = [${nums}] includes an element that is not a number`, 400);
 		}
 
-		// Pam: turn nums elements into numbers as all must be numbers sure by now. 
+		// Pam: turn nums elements into possible float numbers as all must be numbers for sure by now. 
 		nums = nums.map(str => parseFloat(str))
 		// console.log("Nums:", nums);
 
