@@ -21,10 +21,20 @@ $ npm install
 ```
 $ node calc_API.js
 ```
-5. then you make get requets to our calculator api on port 3000 of your localhost.
+5. then you make get requets to our calculator api on port 3000 of your localhost. But you can change this whenever you like by changing the value of port in calc_API_app.js.
+```
+// init our express app
+const app = express();
+
+// set app port
+const port = 3000; <<<<<<
+
+// Tell Express to parse all requests for json
+app.use(express.json());
+```
 
 ## Route Requests
-The three base routes are /mean, /median, /mode. All accept GET requests at the moment. Currently app will run on port 3000 when run
+The three base routes are /mean, /median, /mode. All accept GET requests at the moment. note: Currently by default app will run on port 3000. if you changed this make sure to also change the port value from the examples given.
 ### /mean
 Example:
 >http://localhost:3000/mean?nums=NUMS

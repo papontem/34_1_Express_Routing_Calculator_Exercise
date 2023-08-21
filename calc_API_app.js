@@ -8,8 +8,10 @@ const ExpressError = require('./expressError')
 
 // init our express app
 const app = express();
+
 // set app port
 const port = 3000;
+
 // Tell Express to parse all requests for json
 app.use(express.json());
 
