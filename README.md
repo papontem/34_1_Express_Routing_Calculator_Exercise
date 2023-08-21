@@ -17,7 +17,11 @@ To set up and run the application locally, follow these steps:
 ```
 $ npm install
 ```
-4. to start the Node.js REPL (Read-Eval-Print Loop), use the command:
+4. to start the server use the command:
 ```
-$ node
+$ node calc_API.js
 ```
+5. then you make get requets to our calculator api on port 3000 of your localhost.
+
+## Route Requests
+The three base routes are /mean, /median, /mode. All accept GET requests at the moment.
