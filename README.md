@@ -24,4 +24,15 @@ $ node calc_API.js
 5. then you make get requets to our calculator api on port 3000 of your localhost.
 
 ## Route Requests
-The three base routes are /mean, /median, /mode. All accept GET requests at the moment.
+The three base routes are /mean, /median, /mode. All accept GET requests at the moment. Currently app will run on port 3000 when run
+### /mean
+Example:
+>http://localhost:3000/mean?nums=NUMS
+
+### /median
+Example:
+>http://localhost:3000/median?nums=NUMS
+
+### /mode
+Example:
+>http://localhost:3000/mode?nums=NUMS
